@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TwitterGenerator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Twitter List Generator" Height="250" Width="350">
     <Grid>
-        
+        <StackPanel  Margin="0,50,4,50">
+            <TextBlock Text="Insert the Twitter handle you want to generate a report of." Width="300" Height="40" Margin="19,0" TextWrapping="Wrap" FontSize="14" TextAlignment="Center"  />
+            <TextBox Text="Egh" BorderThickness="0,0,0,1" Margin="94,10" HorizontalContentAlignment="Center" Width="150" Height="24" FontSize="14" FontWeight="Bold" />
+            <Button x:Name="btnGenerate" Content="Generate" Width="150" Height="30" Margin="94,0" Click="BtnGenerate_Click" ></Button>
+        </StackPanel>
     </Grid>
 </Window>

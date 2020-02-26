@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Excel = Microsoft.Office.Interop.Excel;
+using Tweetinvi;
 
 namespace TwitterGenerator
 {
@@ -23,6 +25,12 @@ namespace TwitterGenerator
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BtnGenerate_Click(object sender, RoutedEventArgs e)
+        {
+            //SAVE AS FIRST
+
         }
     }
 }
