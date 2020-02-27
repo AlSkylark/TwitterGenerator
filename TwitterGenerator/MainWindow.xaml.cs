@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using Tweetinvi;
 
 namespace TwitterGenerator
@@ -67,11 +68,19 @@ namespace TwitterGenerator
                 wbRange.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
                 wbRange.Borders[Excel.XlBordersIndex.xlEdgeBottom].Weight = 1d;
 
+                //load API Keys
+                OpenFileDialog file = new OpenFileDialog();
+                file.Title = "Select the API Key file";
+                string APIlocation = "";
+                if (file.ShowDialog() == true) { APIlocation = file.FileName; }
+                    
+
+                string keyFile = System.IO.File.ReadAllText(APIlocation);
+
+                APIKey key = JsonConvert.DeserializeObject<APIKey>(keyFile);
+
                 //Twitter api calls
-                Auth.SetUserCredentials("7HvRXvXPf9pt4EaEXaKUf24Cc",
-                        "IYgU2IZa74bBEatM4Q41dNQN0RXVWetyFrJZlPWBxEUfx8RR7e",
-                        "781216822116937728-bW9jR4ZnMkZBV1qIkS8GWgkLkQIrX8L",
-                        "DK1QD9CsIJuvgkccw4lefVrA7Jb4SmWjvbOzZ7QDh68uR");
+                Auth.SetUserCredentials(key.consumerKey,key.consumerSecret,key.accessToken,key.accessSecret);
 
                 var handle = User.GetUserFromScreenName("JamesASinclair");
                 var followers = User.GetFollowerIds(handle, 10000);
@@ -151,6 +160,13 @@ namespace TwitterGenerator
             public string followers_count { get; set; }
             public string friends_count { get; set; }
             public string screen_name { get; set; }
+        }
+        public class APIKey
+        {
+            public string consumerKey { get; set; }
+            public string consumerSecret { get; set; }
+            public string accessToken { get; set; }
+            public string accessSecret { get; set; }
         }
     }
 }
