@@ -80,7 +80,7 @@ namespace TwitterGenerator
                 string fullJson = followerDetails.ToJson();
                 //wbRange.Value = followers.ToJson();
 
-                JObject specificJson = JObject.Parse(fullJson);
+                JToken specificJson = JToken.Parse(fullJson);
 
                 //get the parsed result into a list
                 IList<JToken> results = specificJson.Children().ToList();
@@ -96,34 +96,31 @@ namespace TwitterGenerator
                 Excel.Range resultRange = resultSheet.Range["A2"];
                 for (int r = 0; r < sResults.Count; r++)
                 {
-                    for (int c = 0; c < 8; c++)
+                    for (int c = 0; c < 7; c++)
                     {
                         string toAdd = "";
                         switch (c)
                         {
-                            case 0:
+                            case 0: //Name
                                 toAdd = sResults[r].name;
                                 break;
-                            case 1:
+                            case 1: //TwitterHandle
+                                toAdd = sResults[r].screen_name;
+                                break;
+                            case 2: //Description
                                 toAdd = sResults[r].description;
                                 break;
-                            case 2:
+                            case 3: //Location
                                 toAdd = sResults[r].location;
                                 break;
-                            case 3:
+                            case 4: //url
                                 toAdd = sResults[r].url;
                                 break;
-                            case 4:
-                                toAdd = sResults[r].email;
-                                break;
-                            case 5:
+                            case 5: //followno
                                 toAdd = sResults[r].followers_count;
                                 break;
-                            case 6:
+                            case 6: //followingno
                                 toAdd = sResults[r].friends_count;
-                                break;
-                            case 7:
-                                toAdd = sResults[r].screen_name;
                                 break;
                             default:
                                 break;
@@ -151,7 +148,6 @@ namespace TwitterGenerator
             public string description { get; set; }
             public string location { get; set; }
             public string url { get; set; }
-            public string email { get; set; }
             public string followers_count { get; set; }
             public string friends_count { get; set; }
             public string screen_name { get; set; }
